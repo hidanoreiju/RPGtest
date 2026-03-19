@@ -1,0 +1,74 @@
+/* =========================================
+   RESONANCE - style.css (統合完全版)
+========================================= */
+body { background: #000; color: #ccc; margin: 0; font-family: 'serif'; overflow: hidden; transition: filter 1.2s ease; user-select: none; }
+
+#title-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; background: #000; z-index: 5000; position: relative; }
+.title-logo { text-align: center; margin-bottom: 40px; }
+.game-title { font-size: 4.5rem; color: #800; text-shadow: 0 0 20px #f00; letter-spacing: 15px; margin: 0; }
+.subtitle { color: #666; font-size: 1.2rem; letter-spacing: 5px; margin-bottom: 20px; }
+
+.flower-container { display: flex; justify-content: center; margin-bottom: 20px; }
+.title-flower { width: 80px; animation: blink-flower 2.5s infinite alternate; }
+@keyframes blink-flower { 0% { opacity: 0.3; filter: drop-shadow(0 0 5px #f00) brightness(0.6); } 100% { opacity: 1; filter: drop-shadow(0 0 20px #f00) brightness(1.2); } }
+
+.menu-container { display: flex; flex-direction: column; gap: 15px; align-items: center; }
+.menu-btn { background: transparent; border: 1px solid #333; color: #888; padding: 12px 0; cursor: pointer; transition: 0.4s; font-size: 1rem; width: 300px; }
+.menu-btn:hover { border-color: #800; color: #fff; background: rgba(80,0,0,0.2); letter-spacing: 4px; }
+
+#game-container { position: relative; width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; background: #050505; }
+#map-wrapper { position: relative; width: 90vmin; height: 90vmin; max-width: 850px; max-height: 850px; background: #111; border: 2px solid #222; box-shadow: 0 0 40px rgba(0,0,0,1); overflow: hidden; }
+#visual-area { display: grid; grid-template-columns: repeat(20, 1fr); grid-template-rows: repeat(20, 1fr); width: 100%; height: 100%; }
+
+.tile { display: flex; align-items: center; justify-content: center; font-size: calc(90vmin / 22); }
+.tile-wall { background: #181818; }
+.tile-hole { background: #000; box-shadow: inset 0 0 10px rgba(255,255,255,0.05); } 
+.tile-floor { background-image: radial-gradient(circle at 20% 30%, rgba(200, 200, 220, 0.08) 1px, transparent 1px); background-size: 16px 16px; background-color: #0c0c10; }
+.player-tile { color: #f00; font-weight: bold; text-shadow: 0 0 10px #f00; z-index: 10; position: relative; }
+
+#fog-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 15; transition: background 0.2s linear; }
+.tile-slash-warn { background: rgba(255, 0, 0, 0.15); box-shadow: inset 0 0 5px red; }
+.tile-slash-active { background: rgba(255, 0, 0, 0.7); box-shadow: inset 0 0 15px red; }
+.slash-effect { position: absolute; width: 100%; height: 5%; background: linear-gradient(90deg, transparent, #f00, #fff, #f00, transparent); z-index: 20; pointer-events: none; animation-duration: 0.8s; animation-fill-mode: forwards; }
+@keyframes slash-right { 0% { left: -100%; opacity: 1; } 100% { left: 100%; opacity: 0; } }
+@keyframes slash-left { 0% { left: 100%; opacity: 1; } 100% { left: -100%; opacity: 0; } }
+
+#mini-guide { position: fixed; right: 20px; top: 20px; background: rgba(0,0,0,0.8); border: 1px solid #444; padding: 10px 15px; font-size: 0.85rem; color: #aaa; z-index: 1000; border-radius: 4px; line-height: 1.6; text-shadow: 1px 1px 2px #000; box-shadow: 0 5px 15px rgba(0,0,0,0.8); pointer-events: none; }
+
+#dialogue-ui { position: fixed; bottom: 0; left: 0; width: 100vw; height: auto; min-height: 200px; display: flex; align-items: flex-end; z-index: 2000; pointer-events: auto; background: linear-gradient(to top, rgba(0,0,0,0.95) 70%, transparent); padding-bottom: 20px; }
+#portrait-container { width: 220px; height: 280px; position: relative; left: 10px; bottom: -20px; display: flex; justify-content: center; align-items: flex-end; }
+#dialogue-portrait { max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 0 15px rgba(0,0,0,0.9)); }
+#dialogue-message-box { flex-grow: 1; background: rgba(15, 15, 20, 0.95); border: 2px solid #555; border-radius: 5px; padding: 15px 20px; margin: 0 30px 0 20px; height: 160px; box-shadow: 0 5px 20px rgba(0,0,0,0.9); display: flex; flex-direction: column; }
+#dialogue-name { font-size: 1.2rem; font-weight: bold; margin-bottom: 5px; padding-bottom: 5px; min-height: 24px; }
+#dialogue-text { font-size: 1.2rem; line-height: 1.7; color: #fff; flex-grow: 1; text-shadow: 1px 1px 2px #000; display: none; padding-top: 5px; }
+#game-message { flex-grow: 1; overflow-y: auto; font-size: 1.05rem; line-height: 1.6; color: #eee; margin-bottom: 5px; display: none; }
+
+#action-area { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.action-btn { background: rgba(30, 30, 35, 0.95); border: 1px solid #777; color: #fff; padding: 8px 15px; cursor: pointer; transition: 0.2s; font-size: 0.95rem; border-radius: 4px; }
+.action-btn:hover { background: rgba(120, 0, 0, 0.9); border-color: #f66; }
+
+#menu-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.85); z-index: 4000; display: flex; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
+#menu-window { background: #0a0a0c; border: 2px solid #555; padding: 30px; width: 450px; max-width: 90%; border-radius: 5px; box-shadow: 0 0 30px rgba(0,0,0,1); }
+.menu-title { text-align: center; color: #a0f; text-shadow: 0 0 10px #a0f; margin-top: 0; font-size: 2rem; }
+.menu-section { margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px dashed #333; }
+.menu-section h3 { margin: 0 0 10px 0; color: #bbb; font-size: 1.1rem; border-left: 3px solid #f66; padding-left: 8px; }
+.equip-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; background: #151518; padding: 10px; border-radius: 3px; border: 1px solid #222; }
+.menu-btn-small { background: #222; border: 1px solid #444; color: #ddd; padding: 6px 15px; cursor: pointer; transition: 0.2s; border-radius: 3px; }
+.menu-btn-small:hover { background: #600; border-color: #f66; color: #fff; }
+.inventory-text { line-height: 1.8; color: #bbb; font-size: 0.95rem; }
+
+.whisper-noise { position: fixed; color: rgba(200, 200, 200, 0.4); font-size: 0.8rem; pointer-events: none; z-index: 3000; animation: whisper-fade 0.8s forwards; }
+@keyframes whisper-fade { from { opacity: 1; } to { opacity: 0; transform: scale(1.1) translateY(-10px); } }
+.flash-sepia-anim { animation: flash-sepia 1.2s forwards; }
+@keyframes flash-sepia { 0%, 100% { background: transparent; } 50% { background: rgba(112, 66, 20, 0.4); } }
+.noise-anim { animation: noise-pulse 0.8s forwards; }
+@keyframes noise-pulse { 0% { opacity: 0; } 50% { opacity: 0.5; box-shadow: inset 0 0 120px #000; } 100% { opacity: 0; } }
+.flash-invert-anim { animation: flash-invert 1s forwards; }
+@keyframes flash-invert { 0%, 100% { backdrop-filter: invert(0); background: transparent; } 50% { backdrop-filter: invert(1); background: rgba(255,255,255,0.2); } }
+.flash-red-anim { animation: flash-red 0.5s forwards; }
+@keyframes flash-red { 0%, 100% { background: transparent; } 50% { background: rgba(255, 0, 0, 0.5); } }
+
+.ash { position: fixed; background: #fff; opacity: 0.2; pointer-events: none; border-radius: 50%; animation: fall linear infinite; z-index: 500; }
+@keyframes fall { to { transform: translateY(100vh); } }
+
+.color-leon { color: #fff; } .color-zepp { color: #a0f; } .color-lucas { color: #add8e6; } .color-enemy { color: #f44; }

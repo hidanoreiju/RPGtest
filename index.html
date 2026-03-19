@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>RESONANCE - 第1章 試練の洞窟</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body id="game-body">
+    <div id="flash-overlay"></div>
+    <div id="noise-overlay"></div>
+
+    <div id="title-screen">
+        <div class="title-logo">
+            <div class="flower-container">
+                <div class="title-flower" style="font-size:80px; color:#f00; text-shadow:0 0 20px #f00;">❀</div>
+            </div>
+            <h1 class="game-title">RESONANCE</h1>
+            <p class="subtitle">― 追想と再会の響き ―</p>
+        </div>
+        <div class="menu-container">
+            <button class="menu-btn" onclick="startGame()">START (Enter)</button>
+            <button class="menu-btn" onclick="openSaveMenu()">LOAD (L)</button>
+            <button class="menu-btn" onclick="alert('まだ記憶が足りません')">LIBRARY</button>
+        </div>
+    </div>
+
+    <div id="curse-ui" style="display:none; position:fixed; top:70px; right:20px; color:#f44; font-weight:bold; font-size:1.2rem; z-index:1000; text-shadow:0 0 10px #f00; background:rgba(0,0,0,0.7); padding:5px 15px; border-radius:5px; border:1px solid #f44;">
+        呪い：あと <span id="curse-steps">50</span> 歩
+    </div>
+
+    <div id="game-container" style="display:none;">
+        <div id="map-wrapper">
+            <div id="visual-area"></div>
+            <div id="fog-overlay" style="display:none;"></div>
+        </div>
+
+        <div id="mini-guide">
+            [WASD] 移動<br><span style="cursor:pointer; color:#add8e6; text-decoration:underline;" onclick="toggleMenu()">[M] メニュー (クリック可)</span><br>[R] 残響視<br>[E] 回復薬 / [C] 調律
+        </div>
+
+        <div id="dialogue-ui" style="display: none;">
+            <div id="portrait-container">
+                <img id="dialogue-portrait" src="" alt="" onerror="this.style.display='none'">
+            </div>
+            <div id="dialogue-message-box">
+                <div id="dialogue-name"></div>
+                <div id="dialogue-text"></div>
+                <div id="game-message"></div>
+                <div id="action-area"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="menu-overlay" style="display: none;">
+        <div id="menu-window">
+            <h2 class="menu-title">MENU</h2>
+            <div class="menu-section">
+                <h3>【器の状態】</h3>
+                <p>耐久 (HP): <span id="menu-hp" style="color:#f66; font-weight:bold;"></span></p>
+                <p>共鳴度 (Res): <span id="menu-res" style="color:#a0f; font-weight:bold;"></span> - <span id="menu-res-text" style="font-size:0.8rem; color:#aaa;"></span></p>
+            </div>
+            <div class="menu-section">
+                <h3>【現在の装備】</h3>
+                <div class="equip-row"><span>武器: <span id="menu-equip-weapon" style="color:#add8e6; font-weight:bold;"></span></span><button class="menu-btn-small" onclick="openEquipMenu('weapon')">変更</button></div>
+                <div class="equip-row"><span>防具: <span id="menu-equip-armor" style="color:#add8e6; font-weight:bold;"></span></span><button class="menu-btn-small" onclick="openEquipMenu('armor')">変更</button></div>
+            </div>
+            <div class="menu-section">
+                <h3>【所持品・素材】</h3>
+                <div id="menu-inventory" class="inventory-text"></div>
+            </div>
+            <div style="text-align:center; margin-top:20px;">
+                <button class="menu-btn" style="width:100%;" onclick="toggleMenu()">閉じる (M / Esc)</button>
+            </div>
+        </div>
+    </div>
+
+   <div id="ash-container"></div>
+    
+    <script src="chapter1/ch1_data.js?v=999"></script>
+    <script src="main.js?v=101"></script>  
+    <script src="chapter1/ch1_events.js?v=999"></script>
+</body>
+</html>
